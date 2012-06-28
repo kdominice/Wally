@@ -25,7 +25,7 @@ var mixins = (function () {
     
 }).call(this);
 
-var files = ['./conf.json', './aliases.json', './templateText.json'];
+var files = ['./conf.json', './data/aliases.json', './data/templateText.json'];
 
 async.map(files, fs.readFile, function (error, results) {
     var parsedResults = _.chain(results).invoke('toString', 'ascii').map(JSON.parse).value();
