@@ -4,12 +4,12 @@ var Bot = require('ttapi');
 var fs = require('fs');
 var async = require('async');
 
-var templates = require('./lib/templates').templates;
-var TTAdapter = require('./lib/ttadapter');
-var logging = require('./lib/logging').logging;
-var ControllerBot = require('./lib/controller').ControllerBot;
-var commands = require('./lib/commands').commands;
-var echonest = require('./lib/echonest').echonest;
+var templates = require('../lib/templates').templates;
+var TTAdapter = require('../lib/ttadapter');
+var logging = require('../lib/logging').logging;
+var ControllerBot = require('../lib/controller').ControllerBot;
+var commands = require('../lib/commands').commands;
+var echonest = require('../lib/echonest').echonest;
 
 var mixins = (function () {
 
@@ -17,7 +17,7 @@ var mixins = (function () {
         'echonestsessionmanager', 'chatcommandexecutor'];
         
     return _.map(mixinClasses, function (mixinClass) {
-        var MixinClass = require('./lib/mixins/' + mixinClass);
+        var MixinClass = require('../lib/mixins/' + mixinClass);
         return new MixinClass({
             logger : logging.fileLogger(mixinClass + '.log')
         });
