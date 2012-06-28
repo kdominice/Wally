@@ -1,44 +1,44 @@
 var winston = require('winston');
 
 var Bot = require('ttapi');
-var TTAdapter = require('./ttadapter');
-var logging = require('./logging').logging;
-var ControllerBot = require('./controller').ControllerBot;
-var commands = require('./commands').commands;
+var TTAdapter = require('./lib/ttadapter');
+var logging = require('./lib/logging').logging;
+var ControllerBot = require('./lib/controller').ControllerBot;
+var commands = require('./lib/commands').commands;
 
-var echonest = require('./echonest').echonest;
+var echonest = require('./lib/echonest').echonest;
 
 var mixins = (function () {
     
-    var roomLogger = new require('./mixins/roomlogger').RoomLogger({
+    var roomLogger = new require('./lib/mixins/roomlogger').RoomLogger({
             logger : logging.fileLogger('room.log')
         });
     
-    var fillInDj = new require('./mixins/fillindj').FillInDJ({
+    var fillInDj = new require('./lib/mixins/fillindj').FillInDJ({
             logger : logging.fileLogger('fillindj.log')
         });
     
-    var playTracker = new require('./mixins/playtracker').PlayTracker({
+    var playTracker = new require('./lib/mixins/playtracker').PlayTracker({
             logger : logging.fileLogger('playtracker.log')
         });
     
-    var bopper = new require('./mixins/bopper').Bopper({
+    var bopper = new require('./lib/mixins/bopper').Bopper({
             logger : logging.fileLogger('bopper.log')
         });
     
-    var greeter = new require('./mixins/greeter').Greeter({
+    var greeter = new require('./lib/mixins/greeter').Greeter({
             logger : logging.fileLogger('greeter.log')
         });
     
-    var snagger = new require('./mixins/snagger').Snagger({
+    var snagger = new require('./lib/mixins/snagger').Snagger({
             logger : logging.fileLogger('snagger.log')
         });
     
-    var echonestSessionManager = new require('./mixins/echonestsessionmanager').EchonestSessionManager({
+    var echonestSessionManager = new require('./lib/mixins/echonestsessionmanager').EchonestSessionManager({
             logger : logging.fileLogger('snagger.log')
         });
     
-    var chatCommandExecutor = new require('./mixins/chatcommandexecutor').ChatCommandExecutor({
+    var chatCommandExecutor = new require('./lib/mixins/chatcommandexecutor').ChatCommandExecutor({
             logger : logging.fileLogger('snagger.log')
         });
     
@@ -49,7 +49,7 @@ var mixins = (function () {
 
 var fs = require('fs');
 var async = require('async');
-var templates = require('./templates').templates;
+var templates = require('./lib/templates').templates;
 
 var files = ['./conf.json', './aliases.json', './templateText.json'];
 
