@@ -10,7 +10,7 @@ var ControllerBot = (function (_) {
         this.roomId = options.room;
         this.adminUser = options.adminUser;
         this.commands = options.commands || {};
-        
+        this.templates = options.templates;
         this.echonest = options.echonest;
         this.userInfo = options.userInfo;
         

@@ -1,0 +1,24 @@
+{
+    "bop" : [
+        "sway",
+        "swing",
+        "dance",
+        "mosh",
+        "rock",
+        "jam",
+        "dougie",
+        "breakdance",
+        "headbang",
+        "rave",
+        "groove",
+        "boogie"
+    ],
+    "snag" : [
+        "add",
+        "grab",
+        "snatch"
+    ],
+    "remove" : [
+        "remove",
+        "delete"]
+}

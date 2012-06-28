@@ -1,10 +1,5 @@
 ﻿var Greeter = (function (_, Handlebars, natural) {
     
-    var templates = {
-        greeting : Handlebars.compile('Welcome @{{{ name }}}! You\'re welcome to play anything here, but please try to keep it SFW :-)'),
-        hello : Handlebars.compile('Hi @{{{ name }}}! Thanks for noticing me...')
-    };
-    
     function Greeter(options) {
         if (!(this instanceof Greeter)) {
             return new Greeter(options);
@@ -16,6 +11,7 @@
     
     Greeter.prototype.initialize = function (parent) {
         this.bot = parent.bot;
+        this.parent = parent;
         this.userInfo = parent.userInfo;
         this.nameMentionRegExp = new RegExp('@' + this.userInfo.name.toLowerCase());
         
@@ -26,13 +22,13 @@
     };
     
     Greeter.prototype.registeredHandler = function (data) {
-        this.bot.speak(templates.greeting({
+        this.bot.speak(this.parent.templates.render('greeting', {
                 name : data.user[0].name
             }));
     };
     
     Greeter.prototype.greet = function (user) {
-        this.bot.speak(templates.hello({
+        this.bot.speak(this.parent.templates.render('hello', {
                 name : user
             }));
     };

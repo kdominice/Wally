@@ -46,15 +46,28 @@ var mixins = (function () {
     
 }).call(this);
 
-require('fs').readFile('./conf.json', 'ascii', function (err, result) {
-    var CONFIG = JSON.parse(result);
+var fs = require('fs');
+var async = require('async');
+var templates = require('./templates').templates;
+
+var files = ['./conf.json', './aliases.json', './templateText.json'];
+
+async.map(files, fs.readFile, function (error, results) {
+    var CONFIG = JSON.parse(results[0].toString('ascii'));
+    var aliases = JSON.parse(results[1].toString('ascii'));
+    var templateDefinitions = JSON.parse(results[2].toString('ascii'));
+    
+    commands.loadAliases(aliases);
+    templates.load(templateDefinitions);
+    
     var bot = new ControllerBot({
         room : CONFIG.ROOM_ID,
+        templates : templates,
         bot : new Bot(CONFIG.AUTH, CONFIG.USER_ID),
         commands : commands,
         userInfo : {
-            shortName : 'wally',
-            name : 'Shy Wally'
+            shortName : CONFIG.BOT_SHORT_NAME,
+            name : CONFIG.BOT_USERNAME
         },
         echonest : new echonest.Client({
             http : require('http'),
@@ -62,11 +75,10 @@ require('fs').readFile('./conf.json', 'ascii', function (err, result) {
             logger : logging.fileLogger('echonest.log')
         }),
         adminUser : {
-            name : 'mdomi',
-            id : '4f67ab51590ca246db036ab1'
+            name : CONFIG.ADMIN_USER_NAME,
+            id : CONFIG.ADMIN_USER_ID
         },
         mixins : mixins
     });
 });
-return;
 

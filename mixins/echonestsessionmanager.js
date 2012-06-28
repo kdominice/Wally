@@ -24,12 +24,18 @@
     };
     
     EchonestSessionManager.prototype.handlePlaylistSessionCreate = function (error, result) {
+        if (error) {
+            this.logger.error(error)
+        }
         this.playlistSession = new models.EchoNestSession();
         this.playlistSession.session_id = result.response.session_id;
         this.playlistSession.save();
     };
     
     EchonestSessionManager.prototype.handleSongSearchResults = function (error, results) {
+        if (error) {
+            this.logger.error(error)
+        }
         var self = this;
         var ids = _.chain(_.isArray(results) ? results : [results])
             .pluck('response')
