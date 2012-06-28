@@ -1,6 +1,7 @@
 var winston = require('winston');
 
 var Bot = require('ttapi');
+var TTAdapter = require('./ttadapter');
 var logging = require('./logging').logging;
 var ControllerBot = require('./controller').ControllerBot;
 var commands = require('./commands').commands;
@@ -63,7 +64,7 @@ async.map(files, fs.readFile, function (error, results) {
     var bot = new ControllerBot({
         room : CONFIG.ROOM_ID,
         templates : templates,
-        bot : new Bot(CONFIG.AUTH, CONFIG.USER_ID),
+        bot : new TTAdapter(new Bot(CONFIG.AUTH, CONFIG.USER_ID)),
         commands : commands,
         userInfo : {
             shortName : CONFIG.BOT_SHORT_NAME,

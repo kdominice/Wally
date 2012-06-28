@@ -18,7 +18,7 @@
         this.bot.on('speak', this.chatHandler);
     };
     
-    ChatCommandExecutor.prototype.chatHandler = function (data) {
+    ChatCommandExecutor.prototype.chatHandler = function (error, data) {
         var tokens = this.tokenizer.tokenize(data.text.toLowerCase());
         if (tokens[0] === this.userInfo.shortName && tokens.length > 1) {
             var args = tokens.slice(1);

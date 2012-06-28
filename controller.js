@@ -27,13 +27,13 @@ var ControllerBot = (function (_) {
         this.bot.roomRegister(this.roomId);
     };
     
-    ControllerBot.prototype.roomChangedHandler = function (data) {
+    ControllerBot.prototype.roomChangedHandler = function (error, data) {
         this.room = data.room;
         this.bot.getFanOf(this.fanAdmin);
         this.bot.userInfo(this.verifyProfileInfo);
     };
     
-    ControllerBot.prototype.verifyProfileInfo = function (data) {
+    ControllerBot.prototype.verifyProfileInfo = function (error, data) {
         if (data.name !== this.userInfo.userName) {
             this.bot.modifyProfile({
                 name : this.userInfo.name
@@ -41,7 +41,7 @@ var ControllerBot = (function (_) {
         }
     };
     
-    ControllerBot.prototype.fanAdmin = function (data) {
+    ControllerBot.prototype.fanAdmin = function (error, data) {
         if (!(this.adminUser.id in data.fanof)) {
             this.bot.becomeFan(this.adminUser.id);
         }

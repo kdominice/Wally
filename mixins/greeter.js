@@ -21,7 +21,7 @@
         this.bot.on('registered', this.registeredHandler);
     };
     
-    Greeter.prototype.registeredHandler = function (data) {
+    Greeter.prototype.registeredHandler = function (error, data) {
         this.bot.speak(this.parent.templates.render('greeting', {
                 name : data.user[0].name
             }));
@@ -33,7 +33,7 @@
             }));
     };
     
-    Greeter.prototype.chatHandler = function (data) {
+    Greeter.prototype.chatHandler = function (error, data) {
         var tokens = this.tokenizer.tokenize(data.text.toLowerCase());
         if (data.text.toLowerCase().match(this.nameMentionRegExp)) {
             if (_.indexOf(['hey', 'hi', 'hello', 'greetings'], tokens[0]) > -1) {

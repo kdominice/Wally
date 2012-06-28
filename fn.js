@@ -104,10 +104,12 @@
                 });
         });
         
+        _.extend(fn, matchers);
+        
         fn.transforms = transforms;
         
         //Attach properties to exports.
-        exports.fn = fn;
+        module.exports = fn;
         
         return fn;
     });
@@ -122,7 +124,6 @@
         //the code does not have dependencies, or
         //dependencies fit the call pattern below.
         factory(function (value) {
-            console.log(value);
             return window[value];
         }, (window[id] = {}));
     }

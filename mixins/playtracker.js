@@ -21,11 +21,11 @@
     };
     
     /* Event Handlers ------------------------------------------------------- */
-    PlayTracker.prototype.roomChangedHandler = function (roomChangeData) {
+    PlayTracker.prototype.roomChangedHandler = function (error, roomChangeData) {
         if (roomChangeData.room.metadata.songlog) {
             this.addToPlayedList(roomChangeData.room.metadata.songlog);
         }
-        this.updateNowPlaying(roomChangeData);
+        this.updateNowPlaying(error, roomChangeData);
     };
     
     /* Public API ----------------------------------------------------------- */
@@ -49,7 +49,7 @@
         return _.last(this.playedList, n);
     };
     
-    PlayTracker.prototype.updateNowPlaying = function (data) {
+    PlayTracker.prototype.updateNowPlaying = function (error, data) {
         delete this.currentlyPlaying;
         delete this.currentDj;
         

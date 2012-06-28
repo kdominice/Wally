@@ -16,7 +16,7 @@
         this.bot.on('newsong', this.songHandler);
     };
     
-    RoomLogger.prototype.registeredHandler = function (data) {
+    RoomLogger.prototype.registeredHandler = function (error, data) {
         this.logger.info({
             event : data.command,
             username : data.user[0].name,
@@ -24,7 +24,7 @@
         });
     }
     
-    RoomLogger.prototype.speakHandler = function (data) {
+    RoomLogger.prototype.speakHandler = function (error, data) {
         this.logger.info({
             event : data.command,
             username : data.name,
@@ -33,7 +33,7 @@
         });
     }
     
-    RoomLogger.prototype.songHandler = function (data) {
+    RoomLogger.prototype.songHandler = function (error, data) {
         this.logger.info({
             event : data.command,
             songid : data.room.metadata.current_song._id,

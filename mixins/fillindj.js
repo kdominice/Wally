@@ -19,7 +19,7 @@
         this.bot.on('rem_dj', this.updateDjing);
     };
     
-    FillInDJ.prototype.registeredHandler = function (data) {
+    FillInDJ.prototype.registeredHandler = function (error, data) {
         this.bot.roomInfo(this.checkDJ);
     };
     
@@ -27,7 +27,7 @@
         return (this.djing === true);
     };
     
-    FillInDJ.prototype.checkDJ = function (roomInfoData) {
+    FillInDJ.prototype.checkDJ = function (error, roomInfoData) {
         if (roomInfoData && roomInfoData.users) {
             if (!this.isDJing() && roomInfoData.users.length < 6) {
                 this.djing = true;
@@ -39,7 +39,7 @@
         }
     };
     
-    FillInDJ.prototype.updateDjing = function (addDjData) {
+    FillInDJ.prototype.updateDjing = function (error, addDjData) {
         switch (addDjData.command) {
         case 'rem_dj':
             if (addDjData.user.name === this.userInfo.name) {

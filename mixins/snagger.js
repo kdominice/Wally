@@ -15,10 +15,10 @@
     
     Snagger.prototype.addSong = function (id, callback) {
         var self = this;
-        this.bot.playlistAll(function (data) {
+        this.bot.playlistAll(function (error, data) {
             var songIds = _.pluck(data.list, '_id');
             if (_.indexOf(songIds, id) === -1) {
-                self.bot.playlistAdd(id, songIds.length, function (addData) {
+                self.bot.playlistAdd(id, songIds.length, function (error, addData) {
                     callback(addData);
                 });
             } else {

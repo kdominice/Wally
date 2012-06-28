@@ -70,9 +70,9 @@
         }
     };
     
-    EchonestSessionManager.prototype.roomChangedHandler = function (roomChangeData) {
+    EchonestSessionManager.prototype.roomChangedHandler = function (error, roomChangeData) {
         this.bot.setStatus('available');
-        this.updateNowPlaying(roomChangeData);
+        this.updateNowPlaying(error, roomChangeData);
         var lastPlayed = _.chain(this.parent.lastPlayed(1))
             .pluck('metadata')
             .map(function (songMetadata) {
@@ -94,7 +94,7 @@
         }
     };
     
-    EchonestSessionManager.prototype.updateNowPlaying = function (data) {
+    EchonestSessionManager.prototype.updateNowPlaying = function (error, data) {
         if (data.room.metadata.current_song) {
             if (this.playlistSession) {
                 this.parent.echonest.song.search({

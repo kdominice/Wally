@@ -103,7 +103,7 @@
                             name : user.name,
                             song : results.response.songs[0].title,
                             artist : results.response.songs[0].artist_name
-                        }), user.userid, function (result) {
+                        }), user.userid, function (error, result) {
                         if (!(result && result.success)) {
                             bot.bot.speak(bot.templates.render('suggestion', {
                                     name : user.name,
@@ -137,7 +137,7 @@
         action : function (bot, user, keyword) {
             if (bot.isDJing()) {
                 bot.bot.stopSong(function () {
-                    bot.bot.playlistAll(function (data) {
+                    bot.bot.playlistAll(function (error, data) {
                         bot.bot.playlistRemove(data.list.length - 1, function () {
                             bot.bot.speak(bot.templates.render('skip', {
                                     name : user.name
@@ -153,4 +153,4 @@
     
     exports.commands = commands;
     
-}).call(this, require('underscore'), require('handlebars'), require('async'), require('natural'), require('./fn').fn);
+}).call(this, require('underscore'), require('handlebars'), require('async'), require('natural'), require('./fn'));
