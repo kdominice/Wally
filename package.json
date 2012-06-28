@@ -14,7 +14,8 @@
     },
     "private" : true,
     "scripts" : {
-        "start" : "node ./bin/bot.js"
+        "start" : "node ./bin/bot.js",
+        "test" : "mocha"
     },
     "dependencies" : {
         "natural" : "0.1.12",

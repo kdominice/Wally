@@ -9,7 +9,7 @@ var TTAdapter = require('../lib/ttadapter');
 var logging = require('../lib/logging').logging;
 var ControllerBot = require('../lib/controller').ControllerBot;
 var commands = require('../lib/commands').commands;
-var echonest = require('../lib/echonest').echonest;
+var echonest = require('../lib/echonest');
 
 var mixins = (function () {
 
