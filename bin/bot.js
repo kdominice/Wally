@@ -8,8 +8,13 @@ var templates = require('../lib/templates').templates;
 var TTAdapter = require('../lib/ttadapter');
 var logging = require('../lib/logging').logging;
 var ControllerBot = require('../lib/controller').ControllerBot;
-var commands = require('../lib/commands').commands;
+var commands = require('../lib/commands')
+var defaultCommands = require('../lib/commands/defaults');
 var echonest = require('../lib/echonest');
+
+_.each(defaultCommands.commands, function (command) {
+    commands.register(command.keyword, command.action);
+});
 
 var mixins = (function () {
 
