@@ -44,10 +44,12 @@
                 done();
             });
             
-            bot.bar({
-                foo : 'callback',
-                bar : 'args'
-            }, 'otherResult');
+            setTimeout(function () {
+                bot.bar({
+                    foo : 'callback',
+                    bar : 'args'
+                }, 'otherResult');
+            }, 20)
             
         });
         
