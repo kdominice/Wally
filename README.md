@@ -7,20 +7,6 @@ Running
 =======
 Requires [node.js](http://nodejs.org/) and Node Package Manager (npm).
 
-Requires the following node modules:
-```bash
-npm install ttapi
-npm install node-uuid
-npm install winston
-npm install underscore
-npm install mongoose
-npm install wordpos
-npm install node-uuid
-npm install handlebars
-npm install async
-npm install natural
-```
-
 Also requires that you create a `conf.json` file in the root of the directory where you define:
 ```json
 {
@@ -44,5 +30,5 @@ Also requires that you create a `conf.json` file in the root of the directory wh
 
 Run the bot with:
 ```bash
-node bot.js
+npm start
 ```
