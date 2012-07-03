@@ -19,9 +19,7 @@ _.each(defaultCommands.commands, function (command) {
 function createMixins(mixinConfig) {
     var mixinClasses = ['roomlogger', 'fillindj', 'playtracker', 'bopper', 'greeter', 'snagger',
         'echonestsessionmanager', 'chatcommandexecutor', 'autobop'];
-        
-    mixinConfig = mixinConfig || {};
-        
+    
     return _.map(mixinClasses, function (mixinClass) {
         var MixinClass = require('../lib/mixins/' + mixinClass);
         return new MixinClass({
@@ -40,7 +38,7 @@ async.map(files, fs.readFile, function (error, results) {
     var aliases = parsedResults[1];
     var templateDefinitions = parsedResults[2];
     
-    var mixins = createMixins(CONFIG.mixins);
+    var mixins = createMixins(CONFIG.mixins || {});
     
     commands.loadAliases(aliases);
     templates.load(templateDefinitions);
@@ -66,4 +64,3 @@ async.map(files, fs.readFile, function (error, results) {
         mixins : mixins
     });
 });
-
