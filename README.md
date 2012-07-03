@@ -5,7 +5,7 @@ Turntable Bot
 
 Running
 =======
-Requires [node.js](http://nodejs.org/) and Node Package Manager (npm).
+Requires [node.js](http://nodejs.org/) and [Node Package Manager (npm)](http://npmjs.org/).
 
 Also requires that you create a `conf.json` file in the root of the directory where you define:
 ```json
