@@ -1,5 +1,6 @@
 var _ = require('underscore');
 var winston = require('winston');
+var natural = require('natural');
 var Bot = require('ttapi');
 var fs = require('fs');
 var async = require('async');
@@ -8,8 +9,15 @@ var templates = require('../lib/templates').templates;
 var TTAdapter = require('../lib/ttadapter');
 var logging = require('../lib/logging').logging;
 var ControllerBot = require('../lib/controller').ControllerBot;
-var commands = require('../lib/commands');
+
+var CommandStore = require('../lib/commands');
 var defaultCommands = require('../lib/commands/defaults');
+
+var commands = new CommandStore({
+        wordnet : new natural.WordNet(),
+        spellchecker : natural.JaroWinklerDistance
+    });
+
 var echonest = require('../lib/echonest');
 
 _.each(defaultCommands.commands, function (command) {

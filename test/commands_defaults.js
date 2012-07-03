@@ -1,10 +1,12 @@
-(function (_, assert, sinon, commands, defaultCommands) {
+(function (_, assert, sinon, CommandStore, defaultCommands) {
     
     describe('built-in commands', function () {
         
         var bot;
+        var commands;
         
         beforeEach(function () {
+            commands = new CommandStore({});
             _.each(defaultCommands.commands, function (command) {
                 commands.register(command.keyword, command.action);
             });
