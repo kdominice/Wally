@@ -8,7 +8,7 @@ var templates = require('../lib/templates').templates;
 var TTAdapter = require('../lib/ttadapter');
 var logging = require('../lib/logging').logging;
 var ControllerBot = require('../lib/controller').ControllerBot;
-var commands = require('../lib/commands')
+var commands = require('../lib/commands');
 var defaultCommands = require('../lib/commands/defaults');
 var echonest = require('../lib/echonest');
 
@@ -16,19 +16,21 @@ _.each(defaultCommands.commands, function (command) {
     commands.register(command.keyword, command.action);
 });
 
-var mixins = (function () {
-
+function createMixins(mixinConfig) {
     var mixinClasses = ['roomlogger', 'fillindj', 'playtracker', 'bopper', 'greeter', 'snagger',
         'echonestsessionmanager', 'chatcommandexecutor', 'autobop'];
+        
+    mixinConfig = mixinConfig || {};
         
     return _.map(mixinClasses, function (mixinClass) {
         var MixinClass = require('../lib/mixins/' + mixinClass);
         return new MixinClass({
-            logger : logging.fileLogger(mixinClass + '.log')
+            logger : logging.fileLogger(mixinClass + '.log'),
+            config : _.extend({}, mixinConfig[mixinClass])
         });
     });
     
-}).call(this);
+}
 
 var files = ['./conf.json', './data/aliases.json', './data/templateText.json'];
 
@@ -38,10 +40,12 @@ async.map(files, fs.readFile, function (error, results) {
     var aliases = parsedResults[1];
     var templateDefinitions = parsedResults[2];
     
+    var mixins = createMixins(CONFIG.mixins);
+    
     commands.loadAliases(aliases);
     templates.load(templateDefinitions);
     
-    var bot = new ControllerBot({
+    new ControllerBot({
         room : CONFIG.ROOM_ID,
         templates : templates,
         bot : new TTAdapter(new Bot(CONFIG.AUTH, CONFIG.USER_ID)),
