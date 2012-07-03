@@ -13,6 +13,48 @@
             bot.bot = {};
         });
         
+        describe('autobop command', function () {
+        
+            it('should call disableAutobop() on the bot when called with "off"', function () {
+            
+                bot.disableAutoBop = sinon.stub();
+                
+                commands.execute(bot, {
+                    name : 'bob'
+                }, 'autobop', 'off');
+                
+                sinon.assert.calledOnce(bot.disableAutoBop);
+            
+            });
+        
+            it('should call enableAutobop() called with no threshold', function () {
+            
+                bot.enableAutoBop = sinon.stub();
+                
+                commands.execute(bot, {
+                    name : 'bob'
+                }, 'autobop', '75');
+                
+                sinon.assert.calledOnce(bot.enableAutoBop);
+                sinon.assert.calledWith(bot.enableAutoBop);
+            
+            });
+        
+            it('should call enableAutobop() on the bot, passing a threshold when called with a threshold', function () {
+            
+                bot.enableAutoBop = sinon.stub();
+                
+                commands.execute(bot, {
+                    name : 'bob'
+                }, 'autobop', '75');
+                
+                sinon.assert.calledOnce(bot.enableAutoBop);
+                sinon.assert.calledWith(bot.enableAutoBop, 75);
+            
+            });
+        
+        });
+        
         describe('bop command', function () {
             
             it('should speak the "already bopping template" when bot is bopping', function () {

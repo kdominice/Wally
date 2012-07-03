@@ -19,7 +19,7 @@ _.each(defaultCommands.commands, function (command) {
 var mixins = (function () {
 
     var mixinClasses = ['roomlogger', 'fillindj', 'playtracker', 'bopper', 'greeter', 'snagger',
-        'echonestsessionmanager', 'chatcommandexecutor'];
+        'echonestsessionmanager', 'chatcommandexecutor', 'autobop'];
         
     return _.map(mixinClasses, function (mixinClass) {
         var MixinClass = require('../lib/mixins/' + mixinClass);
