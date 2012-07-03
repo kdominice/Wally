@@ -9,14 +9,17 @@
                 commands.register(command.keyword, command.action);
             });
             bot = {};
+            
+            bot.lyricsClient = {};
+            
             bot.templates = {};
             bot.bot = {};
         });
         
         describe('autobop command', function () {
-        
-            it('should call disableAutobop() on the bot when called with "off"', function () {
             
+            it('should call disableAutobop() on the bot when called with "off"', function () {
+                
                 bot.disableAutoBop = sinon.stub();
                 
                 commands.execute(bot, {
@@ -24,11 +27,11 @@
                 }, 'autobop', 'off');
                 
                 sinon.assert.calledOnce(bot.disableAutoBop);
-            
+                
             });
-        
-            it('should call enableAutobop() called with no threshold', function () {
             
+            it('should call enableAutobop() called with no threshold', function () {
+                
                 bot.enableAutoBop = sinon.stub();
                 
                 commands.execute(bot, {
@@ -37,11 +40,11 @@
                 
                 sinon.assert.calledOnce(bot.enableAutoBop);
                 sinon.assert.calledWith(bot.enableAutoBop);
-            
+                
             });
-        
-            it('should call enableAutobop() on the bot, passing a threshold when called with a threshold', function () {
             
+            it('should call enableAutobop() on the bot, passing a threshold when called with a threshold', function () {
+                
                 bot.enableAutoBop = sinon.stub();
                 
                 commands.execute(bot, {
@@ -50,9 +53,9 @@
                 
                 sinon.assert.calledOnce(bot.enableAutoBop);
                 sinon.assert.calledWith(bot.enableAutoBop, 75);
-            
+                
             });
-        
+            
         });
         
         describe('bop command', function () {
@@ -243,6 +246,55 @@
         describe('skip command', function () {});
         
         describe('remove command', function () {});
+        
+        describe('lyrics command', function () {
+            
+            it('should query the lyricsService based on the current song', function () {
+                
+                bot.templates.render = sinon.stub().returns('rendered template');
+                bot.bot.speak = sinon.stub();
+                bot.lyricsClient.getSong = sinon.stub().callsArgWith(1, null, {
+                        artist : 'Foo Fighters',
+                        song : 'Times Like These',
+                        lyrics : 'I, I\'m a one-way motorway\nI\'m [...]',
+                        url : 'http://lyrics.wikia.com/Foo_Fighters:Times_Like_These'
+                    });
+                bot.lastPlayed = sinon.stub().returns({
+                        "_id" : "4de1a8e8845daf3a4d000092",
+                        "starttime" : 1314316306.63,
+                        "metadata" : {
+                            "song" : "Times Like These",
+                            "artist" : "Foo Fighters",
+                            "length" : 271,
+                            "mnid" : "9545411"
+                        }
+                    });
+                
+                commands.execute(bot, {
+                    name : 'bob',
+                    userid : '4321'
+                }, 'lyrics');
+                
+                sinon.assert.calledOnce(bot.lastPlayed);
+                
+                sinon.assert.calledOnce(bot.lyricsClient.getSong);
+                sinon.assert.calledWith(bot.lyricsClient.getSong, {
+                    artist : 'Foo Fighters',
+                    song : 'Times Like These'
+                });
+                
+                sinon.assert.calledOnce(bot.templates.render);
+                sinon.assert.calledWith(bot.templates.render, 'lyricsOutput', {
+                    url : 'http://lyrics.wikia.com/Foo_Fighters:Times_Like_These',
+                    lyrics : 'I, I\'m a one-way motorway\nI\'m [...]'
+                });
+                
+                sinon.assert.calledOnce(bot.bot.speak);
+                sinon.assert.calledWith(bot.bot.speak, 'rendered template');
+                
+            });
+            
+        });
     });
 }).call(this, require('underscore'), require('assert'), require('sinon'),
     require('../lib/commands'), require('../lib/commands/defaults'));

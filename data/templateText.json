@@ -9,5 +9,6 @@
     "suggestion" : "Hey {{mention name}}, why don't you try \"{{{ song }}}\", by {{{ artist }}}",
     "suggestionFailure" : "Sorry {{mention name}}, wait just a little bit longer. I'm not quite ready to suggest a song.",
     "greeting" : "Welcome @{{{ name }}}! You're welcome to play anything here, but please try to keep it SFW :-)",
-    "hello" : "Hi @{{{ name }}}! Thanks for noticing me..."
+    "hello" : "Hi @{{{ name }}}! Thanks for noticing me...",
+    "lyricsOutput" : "{{{ url }}}\n{{{ lyrics }}}"
 }

@@ -40,6 +40,9 @@ async.map(files, fs.readFile, function (error, results) {
     
     var mixins = createMixins(CONFIG.mixins || {});
     
+    var http = require('http');
+    var LyricsWikiaClient = require('../lib/lyricswikia');
+    
     commands.loadAliases(aliases);
     templates.load(templateDefinitions);
     
@@ -53,9 +56,13 @@ async.map(files, fs.readFile, function (error, results) {
             name : CONFIG.BOT_USERNAME
         },
         echonest : new echonest.Client({
-            http : require('http'),
+            http : http,
             api_key : CONFIG.ECHONEST_API_KEY,
             logger : logging.fileLogger('echonest.log')
+        }),
+        lyricsClient : new LyricsWikiaClient({
+            http : http,
+            logger : logging.fileLogger('lyricswiki.log')
         }),
         adminUser : {
             name : CONFIG.ADMIN_USER_NAME,
