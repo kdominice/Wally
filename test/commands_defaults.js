@@ -18,6 +18,34 @@
             bot.bot = {};
         });
         
+        describe('fillin command', function () {
+        
+            it('should call disableFillInDj() on the bot when called with "off"', function () {
+            
+                bot.disableFillInDj = sinon.stub();
+                
+                commands.execute(bot, {
+                    name : 'bob'
+                }, 'fillin', 'off');
+                
+                sinon.assert.calledOnce(bot.disableFillInDj);
+            
+            });
+        
+            it('should call enableFillInDj() on the bot when called with "on"', function () {
+            
+                bot.enableFillInDj = sinon.stub();
+                
+                commands.execute(bot, {
+                    name : 'bob'
+                }, 'fillin', 'on');
+                
+                sinon.assert.calledOnce(bot.enableFillInDj);
+            
+            });
+        
+        });
+        
         describe('autobop command', function () {
             
             it('should call disableAutobop() on the bot when called with "off"', function () {
