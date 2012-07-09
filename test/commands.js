@@ -78,6 +78,7 @@
             commands = new CommandStore({
                     spellchecker : spellchecker
                 });
+            commands.spellcheckThreshold = 0.8;
             
             
             var callback = sinon.stub();

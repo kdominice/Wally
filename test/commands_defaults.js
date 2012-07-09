@@ -92,6 +92,7 @@
             
             it('should speak the "already bopping template" when bot is bopping', function () {
                 
+                bot.getCurrentBopAction = sinon.stub().returns('dance');
                 bot.isBopping = sinon.stub().returns(true);
                 bot.templates.render = sinon.stub().returns('rendered template');
                 bot.bot.speak = sinon.stub();
@@ -106,7 +107,7 @@
                 sinon.assert.calledWith(bot.templates.render, 'alreadyBopping', {
                     name : 'bob',
                     action : 'bop',
-                    oldAction : 'bop'
+                    oldAction : 'dance'
                 });
                 
                 sinon.assert.calledOnce(bot.bot.speak);
@@ -152,7 +153,8 @@
                     userid : '4321'
                 }, 'bop');
                 
-                assert.equal(bot.lastAction, 'bop');
+                sinon.assert.calledOnce(bot.startBopping);
+                sinon.assert.calledWith(bot.startBopping, 'bop');
                 
                 sinon.assert.calledOnce(bot.isBopping);
                 sinon.assert.calledOnce(bot.getCurrentDj);

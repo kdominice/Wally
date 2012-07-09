@@ -41,6 +41,7 @@ function createMixins(mixinConfig) {
 var files = ['./conf.json', './data/aliases.json', './data/templateText.json'];
 
 async.map(files, fs.readFile, function (error, results) {
+    console.log(error);
     var parsedResults = _.chain(results).invoke('toString', 'ascii').map(JSON.parse).value();
     var CONFIG = parsedResults[0];
     var aliases = parsedResults[1];
